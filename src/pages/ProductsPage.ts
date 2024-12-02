@@ -2,7 +2,6 @@ import { Locator, Page } from "@playwright/test";
 
 export class ProductsPage {
     readonly page: Page;
-    //readonly usernameText: Locator;
     readonly header: Locator;
     readonly addToCartButton: Locator;
     readonly purchaseButton: Locator;
@@ -10,7 +9,6 @@ export class ProductsPage {
 
     constructor(page: Page) {
         this.page = page;
-        //this.usernameText = page.locator('[data-testid="username"]'); // Ensure correct test ID or class
         this.header = page.locator('h1');
         this.addToCartButton = page.getByTestId('add-to-cart-button'); // Make sure to replace with the actual locator
         this.purchaseButton = page.getByRole('button', { name: 'Buy' }); // Adjust locator for cart button
