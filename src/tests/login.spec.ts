@@ -10,8 +10,8 @@ test('Login with Saad', async ({ page }) => {
     const productsPage = new ProductsPage(page)
     
     await page.goto("http://hoff.is/login")
-    await loginPage.login("Saad", "sup3rs3cr3t", 'consumer');
-    await loginPage.login("Saad", process.env.PASSWORD as string, 'consumer'); // Access the password from the environment
+    
+    await loginPage.login("Saad", process.env.PASSWORD as string, 'consumer');
 
     const header = await productsPage.header.textContent()
 
@@ -23,7 +23,7 @@ test('fail login', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     await page.goto("http://hoff.is/login")
-    await loginPage.login("Saad", "sup3rs3cr3", 'consumer');
+    await loginPage.login("Saad", "wrongpassword", 'consumer');
     const errorMessage = await loginPage.errorMessage.textContent()
 
     expect(errorMessage).toBe("Incorrect password")
