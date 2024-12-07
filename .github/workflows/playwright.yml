@@ -1,5 +1,8 @@
 name: Playwright Tests
 
+env:
+  PASSWORD: ${{ secrets.PASSWORD }}
+
 on:
   push:
     branches:
@@ -26,4 +29,6 @@ jobs:
       run: npx playwright install
 
     - name: Run Playwright tests
+      env: # Pass the PASSWORD secret as an environment variable
+        PASSWORD: ${{ secrets.PASSWORD }}
       run: npx playwright test
