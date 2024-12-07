@@ -6,18 +6,19 @@ import dotenv from 'dotenv';
 dotenv.config(); // Load environment variables
 
 test('Login with Saad', async ({ page }) => {
-    const loginPage = new LoginPage(page)
-    const productsPage = new ProductsPage(page)
-    
-    await page.goto("http://hoff.is/login")
-    
-    await loginPage.login("Saad", process.env.PASSWORD as string, 'consumer');
+    const loginPage = new LoginPage(page);
+    const productsPage = new ProductsPage(page);
+    const password = process.env.PASSWORD;
+
+    if (!password) throw new Error("PASSWORD environment variable is not set");
+
+    await page.goto("http://hoff.is/login");
+    await loginPage.login("Saad", password, 'consumer');
 
     const header = await productsPage.header.textContent()
+    expect(header).toBe("Store");
+});
 
-    expect(header).toBe("Store")
-
-})
 
 test('fail login', async ({ page }) => {
     const loginPage = new LoginPage(page);
@@ -29,4 +30,4 @@ test('fail login', async ({ page }) => {
     expect(errorMessage).toBe("Incorrect password")
 
 
-})
+});
