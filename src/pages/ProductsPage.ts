@@ -3,28 +3,39 @@ import { Locator, Page } from "@playwright/test";
 export class ProductsPage {
     readonly page: Page;
     readonly header: Locator;
+    readonly chooseProduct : Locator;
+    readonly amountInput : Locator;
     readonly addToCartButton: Locator;
     readonly purchaseButton: Locator;
-    
+    readonly deleteButton: Locator;
+    readonly totalProducts: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.header = page.locator('h1');
-        this.addToCartButton = page.getByTestId('add-to-cart-button'); // Make sure to replace with the actual locator
-        this.purchaseButton = page.getByRole('button', { name: 'Buy' }); // Adjust locator for cart button
-        
+        this.chooseProduct = page.getByTestId('select-product');
+        this.amountInput = page.getByLabel('Amount');
+        this.addToCartButton = page.getByTestId('add-to-cart-button'); 
+        this.purchaseButton = page.getByRole('button', { name: 'Buy' });
+        this.deleteButton = page.getByTestId('Banana-remove-button');
+        this.totalProducts = page.locator('#totalSum');
     }
 
-    // Method to add product to the cart by ID (assuming products have a test id)
-    async addToCart(productId: number) {
-        await this.page.getByTestId('select-product').selectOption('1');
-        await this.page.getByLabel('Amount').fill('2');
-        await this.addToCartButton.click(); // Click the Add to Cart button
+    async addToCart(chooseProduct: string, amountInput: string) {
+        await this.chooseProduct.selectOption(chooseProduct);
+        await this.amountInput.fill(amountInput);
+        await this.addToCartButton.click(); 
     }
 
-    // Method to navigate to the cart page
+    async deleteProduct() {
+       
+        await this.deleteButton.click();
+
+    }
+
+
     async goToCart() {
-        await this.purchaseButton.click(); // Navigate to the cart
+        await this.purchaseButton.click();
         
     }
 }

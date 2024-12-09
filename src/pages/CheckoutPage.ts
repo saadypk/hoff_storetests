@@ -17,9 +17,9 @@ export class CheckoutPage {
 
     }
 
-    async completeCheckout() {
-        await this.page.getByLabel('Name:').fill('Saad');
-        await this.page.getByLabel('Address:').fill('Gata 1');
+    async completeCheckout(nameInput: string, addressInput: string) {
+        await this.nameInput.fill(nameInput);
+        await this.addressInput.fill(addressInput);
         await this.confirmPurchaseButton.click();
     }
 }

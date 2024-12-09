@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-test('Login with Saad', async ({ page }) => {
+test('Add to cart and delete', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const productsPage = new ProductsPage(page);
     const password = process.env.PASSWORD;
@@ -17,17 +17,13 @@ test('Login with Saad', async ({ page }) => {
 
     const header = await productsPage.header.textContent()
     expect(header).toBe("Store");
-});
 
+    await productsPage.addToCart('2', '3');
+    await productsPage.deleteProduct();
+    await expect(productsPage.totalProducts).toContainText("0");
+    const totalProductsValue = await productsPage.totalProducts.textContent();
 
-test('fail login', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-
-    await page.goto("http://hoff.is/login")
-    await loginPage.login("Saad", "wrongpassword", 'consumer');
-    const errorMessage = await loginPage.errorMessage.textContent()
-
-    expect(errorMessage).toBe("Incorrect password")
-
+    console.log(`Total products: ${totalProductsValue}`);
+    
 
 });
