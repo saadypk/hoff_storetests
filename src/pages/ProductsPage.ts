@@ -33,7 +33,6 @@ export class ProductsPage {
 
     }
 
-
     async goToCart() {
         await this.purchaseButton.click();
         
