@@ -5,7 +5,7 @@ import { ProductsPage } from '../pages/ProductsPage';
 
 
 test.describe('homepage', () => {
-  test.skip('should not have any automatically detectable accessibility issues', async ({ page }) => {
+  test('should not have any automatically detectable accessibility issues', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const productsPage = new ProductsPage(page);
     
